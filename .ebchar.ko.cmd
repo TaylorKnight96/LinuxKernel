@@ -1,0 +1,1 @@
+cmd_/home/carlos/driver/charKernelDriver/ebchar.ko := ld -r -m elf_i386 -T ./scripts/module-common.lds --build-id  -o /home/carlos/driver/charKernelDriver/ebchar.ko /home/carlos/driver/charKernelDriver/ebchar.o /home/carlos/driver/charKernelDriver/ebchar.mod.o
