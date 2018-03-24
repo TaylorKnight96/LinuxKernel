@@ -18,7 +18,7 @@
 
 int main()
 {
-   int ret, fd, cont = 0;
+   int ret, fd, cont = 0, readDevice = 1, writeDevice = 1;
    char stringToSend[BUFFER_LENGTH];
    char * receiveBuffer;
    printf("Starting device test code example...\n");
@@ -34,29 +34,41 @@ int main()
 	   scanf("%d",&cont);
 
 	   if(cont) break;
+	   printf("would you like to write something to the device\n0)yes\n1)no\n");
+	   scanf("%d", &writeDevice);
 
-	   printf("Type in a short string to send to the kernel module:\n");
-	   scanf("%s", stringToSend);                // Read in a string (with spaces)
-	   printf("Writing message to the device [%s].\n", stringToSend);
-	   ret = write(fd, stringToSend, strlen(stringToSend)); // Send the string to the LKM
+	   if(!writeDevice)
+ 	   {
+		   printf("Type in a short string to send to the kernel module:\n");
+		   scanf("%s", stringToSend);                // Read in a string (with spaces)
+		   printf("Writing message to the device [%s].\n", stringToSend);
+		   ret = write(fd, stringToSend, strlen(stringToSend)); // Send the string to the LKM
+           }
 	   if (ret < 0)
 	   {
 	      perror("Failed to write the message to the device.");
 	      return errno;
 	   }
            int lengthWanted = 0;
-	   printf("type a length to read back from the device...\n");
-	   scanf("%d", &lengthWanted);
-    	   receiveBuffer = calloc(lengthWanted + 1, sizeof(char));
-	   printf("Reading from the device...\n");
-	   ret = read(fd, receiveBuffer , lengthWanted);        // Read the response from the LKM
+
+	   printf("would you like to read something from the device\n0)yes\n1)no\n");
+	   scanf("%d", &readDevice);
+
+	   if(!readDevice)
+           {
+		   printf("type a length to read back from the device...\n");
+		   scanf("%d", &lengthWanted);
+		   receiveBuffer = calloc(lengthWanted + 1, sizeof(char));
+		   printf("Reading from the device...\n");
+		   ret = read(fd, receiveBuffer , lengthWanted);        // Read the response from the LKM
+		   printf("The received message is: [%s]\n",receiveBuffer);
+		   free(receiveBuffer);
+           }
 	   if (ret < 0)
 	   {
 	      perror("Failed to read the message from the device.");
 	      return errno;
 	   }
-	   printf("The received message is: [%s]\n",receiveBuffer);
-  	   free(receiveBuffer);
    }
    printf("End of the program\n");
    return 0;

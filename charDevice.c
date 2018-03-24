@@ -1,12 +1,3 @@
-/**
- * @file   ebbchar.c
- * @brief   An introductory character driver to support the second article of my series on
- * Linux loadable kernel module (LKM) development. This module maps to /dev/ebbchar and
- * comes with a helper C program that can be run in Linux user space to communicate with
- * this the LKM.
- * @see http://www.derekmolloy.ie/ for a full description and follow-up descriptions.
- */
-
  // Carlos Membreno, Kevin Santana, Taylor Knight
  // Program 2, LKM: A character Device
 
@@ -152,9 +143,6 @@ static ssize_t dev_read(struct file *filep, char *buffer, size_t len, loff_t *of
    }
    //the new message will be pasted into the global message to get rid of read characters
    strcpy( message, new_message );
-   printk( KERN_INFO "new_message: %s\n",new_message );
-   printk( KERN_INFO "length: %d\n", size_of_message );
-   printk( KERN_INFO "message: %s\n", message );
 
    if (error_count==0)
    {            // if true then have success

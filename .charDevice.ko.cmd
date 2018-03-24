@@ -1,0 +1,1 @@
+cmd_/home/azul/Git/LinuxKernel/charDevice.ko := ld -r -m elf_i386 -T ./scripts/module-common.lds --build-id  -o /home/azul/Git/LinuxKernel/charDevice.ko /home/azul/Git/LinuxKernel/charDevice.o /home/azul/Git/LinuxKernel/charDevice.mod.o
